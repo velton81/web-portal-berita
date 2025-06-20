@@ -1,0 +1,21 @@
+.berita-card {
+    border: 1px solid #ddd;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+}
+
+.berita-card h3 {
+    margin: 0 0 8px;
+}
+
+.berita-card .read-more {
+    color: blue;
+    text-decoration: underline;
+}
+
+.berita-detail img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 16px;
+}

@@ -1,16 +1,26 @@
 import React from "react";
 
-const Sidebar = () => (
-  <aside className="sidebar">
-    <h3>TOPIK POPULER</h3>
-    <ul>
-      <li>#liga korupsi</li>
-      <li>#AnakPejabat</li>
-      <li>#BRILIGA1</li>
-      <li>#kabar motogp terkini</li>
-      <li>#UCL</li>
-    </ul>
-  </aside>
-);
+const Sidebar = () => {
+    const topikPopuler = [
+        "#liga korupsi",
+        "#AnakPejabat",
+        "#BRILIGA1",
+        "#kabar motogp terkini",
+        "#UCL",
+    ];
+
+    return (
+        <aside className="sidebar">
+            <div className="topik-populer">
+                <h3>TOPIK POPULER</h3>
+                {topikPopuler.map((topik, index) => (
+                    <a key={index} href={`/search?q=${topik}`} className="tag">
+                        {topik}
+                    </a>
+                ))}
+            </div>
+        </aside>
+    );
+};
 
 export default Sidebar;

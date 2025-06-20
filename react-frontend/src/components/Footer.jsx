@@ -1,9 +1,16 @@
-import React from 'react';
+import React from "react";
+import "../styles/Footer.css";
 
-const Footer = () => (
-  <footer style={{ marginTop: '2rem', padding: '1rem', backgroundColor: '#eee', textAlign: 'center' }}>
-    <p>© 2025 Portal Berita hipipo</p>
-  </footer>
-);
+function Footer() {
+    return (
+        <footer className="site-footer">
+            <div className="footer-content">
+                <div className="footer-copyright">
+                    © 2024 seruhipipo.com - All rights reserved
+                </div>
+            </div>
+        </footer>
+    );
+}
 
 export default Footer;

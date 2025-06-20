@@ -1,0 +1,52 @@
+.berita-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.berita-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.berita-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.berita-meta {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.berita-image {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.berita-content {
+  line-height: 1.8;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.berita-tags {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.berita-tag {
+  display: inline-block;
+  padding: 5px 15px;
+  margin-right: 10px;
+  background: #f0f0f0;
+  border-radius: 20px;
+  color: #666;
+  font-size: 0.9rem;
+}
