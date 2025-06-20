@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\BannerResource\Pages;
-use App\Filament\Resources\BannerResource\RelationManagers;
 use App\Models\Banner;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class BannerResource extends Resource
 {
@@ -23,8 +20,14 @@ class BannerResource extends Resource
     {
         return $form
             ->schema([
-                Forms\components\Select::make('news_id')
+                Forms\Components\Select::make('news_id')
                     ->relationship('news', 'title')
+                    ->preload()
+                    ->searchable()
+                    ->required(),
+                Forms\Components\Toggle::make('is_published')
+                    ->label('Tampilkan di Banner')
+                    ->default(true)
                     ->required(),
             ]);
     }
@@ -33,13 +36,21 @@ class BannerResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('news'),
+                Tables\Columns\TextColumn::make('news.title')
+                    ->label('Judul Berita')
+                    ->searchable(),
+                Tables\Columns\IconColumn::make('is_published')
+                    ->label('Status Banner')
+                    ->boolean(),
             ])
             ->filters([
-                //
+                Tables\Filters\TernaryFilter::make('is_published')
+                    ->label('Status Banner')
+                    ->placeholder('All')
+                    ->trueLabel('Published')
+                    ->falseLabel('Draft'),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
@@ -48,13 +59,6 @@ class BannerResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

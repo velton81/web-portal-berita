@@ -42,7 +42,16 @@ class NewsResource extends Resource
                     ->required(),
                 Forms\components\RichEditor::make('content')
                     ->required()
-                    ->columnSpanFull()
+                    ->columnSpanFull(),
+                Forms\Components\Toggle::make('is_published'),
+                Forms\Components\Select::make('page')
+                    ->options([
+                        'olahraga' => 'Olahraga',
+                        'lifestyle' => 'Lifestyle',
+                        'business' => 'Business',
+                        'terkini' => 'Terkini',
+                    ])
+                    ->required(),
             ]);
     }
 

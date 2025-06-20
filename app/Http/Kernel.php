@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Console\Scheduling\Schedule;
 
 class Kernel extends HttpKernel
 {
@@ -17,6 +18,8 @@ class Kernel extends HttpKernel
         \Illuminate\Http\Middleware\HandleCors::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \App\Http\Middleware\StorageCors::class, // atau 'storage.cors'
+        \App\Http\Middleware\CorsMiddleware::class, // Tambahkan ini
     ];
 
     /**
@@ -53,7 +56,25 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'storage.cors' => \App\Http\Middleware\StorageCors::class,
     ];
+
+    /**
+     * Define the application's command schedule.
+     *
+     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @return void
+     */
+    protected function schedule(Schedule $schedule)
+    {
+        // Import berita setiap jam
+        $schedule->command('news:import')->hourly();
+        
+        // Import per kategori setiap 6 jam
+        $schedule->command('news:import business')->cron('0 */6 * * *');
+        $schedule->command('news:import sports')->cron('15 */6 * * *');
+        $schedule->command('news:import entertainment')->cron('30 */6 * * *');
+    }
 }
 
 namespace App\Http\Middleware;
@@ -80,6 +101,27 @@ class RedirectIfAuthenticated
             }
         }
 
+        return $next($request);
+    }
+}
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+
+class StorageCors
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle(Request $request, Closure $next)
+    {
+        // Add your CORS handling logic here
         return $next($request);
     }
 }

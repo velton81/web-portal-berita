@@ -2,17 +2,25 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class news extends Model
+class News extends Model
 {
+    use HasFactory;
+
+    protected $table = 'news'; // Nama tabel di database
     protected $fillable = [
         'author_id',
         'news_category_id',
         'title',
         'slug',
         'thumbnail',
-        'content'
+        'content',
+        'page',
+        'is_published',
+        'source_url',
+        'source_name'
     ];
 
     public function author()
@@ -22,7 +30,7 @@ class news extends Model
 
     public function newsCategory()
     {
-        return $this->belongsTo(NewsCategory::class);
+        return $this->belongsTo(\App\Models\NewsCategory::class, 'news_category_id');
     }
 
     public function Banner()
