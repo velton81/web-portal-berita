@@ -3,7 +3,7 @@
 return [
     'paths' => ['api/*', 'sanctum/csrf-cookie', 'storage/*', '*'],
     'allowed_methods' => ['*'],
-    'allowed_origins' => ['*'], // Dalam production, ganti dengan domain frontend yang spesifik
+    'allowed_origins' => ['http://localhost:5173', 'https://frontend-anda.vercel.app'], // Dalam production, ganti dengan domain frontend yang spesifik
     'allowed_origins_patterns' => [],
     'allowed_headers' => ['*'],
     'exposed_headers' => [],
